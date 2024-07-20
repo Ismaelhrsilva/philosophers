@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/20 19:51:02 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:03:07 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,27 @@ void *ft_eat(void *arg)
 	return arg;
 }
 
+void *ft_sleeping(void *arg)
+{
+	(void )arg;
+	ft_putendl_fd("is sleeping", STDOUT_FILENO);
+	return arg;
+}
+
+void *ft_thinking(void *arg)
+{
+	(void )arg;
+	ft_putendl_fd("is thinking", STDOUT_FILENO);
+	return arg;
+}
+
 int	main(void)
 {
 	pthread_t	philo;
 
 	pthread_create(&philo, NULL, &ft_eat, NULL);
+	pthread_create(&philo, NULL, &ft_sleeping, NULL);
+	pthread_create(&philo, NULL, &ft_thinking, NULL);
 	pthread_join(philo, NULL);
 	return (0);
 }

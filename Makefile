@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 20:08:54 by ishenriq          #+#    #+#              #
-#    Updated: 2024/07/20 19:54:31 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/07/20 20:00:47 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(BUILD_DIR)%.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
+	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME) -lpthread
 
 clean:
 	@rm -rf $(BUILD_DIR)
