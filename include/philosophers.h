@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/20 20:15:03 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:44:28 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,22 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-void	ft_putendl_fd(char *s, int fd);
+typedef pthread_mutex_t t_pmutex;
 
-void ft_eat(void);
-void ft_sleeping(void);
-void ft_thinking(void);
+typedef struct	s_philo
+{
+	pthread_t	thread;
+	int			id;
+	t_pmutex	life;
+}	t_philo;
+
+typedef struct s_env
+{
+	int	argc;
+}	t_env;
+
+void	ft_putendl_fd(char *s, int fd);
+void ft_message(t_philo *philo, char *msg);
 
 #endif
 
