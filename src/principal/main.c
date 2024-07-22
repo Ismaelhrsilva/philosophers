@@ -6,12 +6,27 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 19:29:49 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:57:22 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 # include <pthread.h>
+
+
+void	ft_eating(t_philo *philo, t_env *env)
+{
+	usleep(philo->env->time_eat * 1000);
+	philo->last_eat = ft_time_now() - philo->born;
+	ft_message(philo, "is eating", philo->last_eat);
+}
+
+void	ft_sleeping(t_philo *philo, t_env *env)
+{
+	usleep(philo->env->time_sleep * 1000);
+	philo->last_sleep= ft_time_now() - philo->born;
+	ft_message(philo, "is sleeping", philo->last_sleep);
+}
 
 void	*ft_life(void *arg)
 {
@@ -20,18 +35,12 @@ void	*ft_life(void *arg)
 
 	philo = (t_philo *)arg;
 	i = 0;
-	while (i < 2)
+	while (i < philo->env->n_eat)
 	{
-		usleep(philo->env->time_eat);
-		philo->last_eat = ft_time_now() - philo->born;
-		ft_message(philo, "is eating", philo->last_eat);
-		usleep(philo->env->time_sleep);
-		philo->last_sleep= ft_time_now() - philo->born;
-		ft_message(philo, "is sleeping", philo->last_sleep);
-		usleep(100);
+		ft_eating(philo, philo->env);
+		ft_sleeping(philo, philo->env);
 		philo->last_thinking = ft_time_now() - philo->born;
 		ft_message(philo, "is thinking", philo->last_thinking);
-		usleep(300);
 		i++;
 	}
 	return (arg);
@@ -53,6 +62,8 @@ int	ft_args(int argc, char **argv, t_env *env)
 		env->time_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
 			env->n_eat = ft_atoi(argv[5]);
+		else
+			env->n_eat = ft_atoi("2");
 		return (0);
 	}
 }
@@ -83,3 +94,27 @@ int	main(int argc, char **argv)
 	ft_philo_after_life(philo, env);
 	return (0);
 }
+/*
+void	*ft_life(void *arg)
+{
+	t_philo *philo;
+	int	i;
+
+	philo = (t_philo *)arg;
+	i = 0;
+	while (i < philo->env->n_eat)
+	{
+		usleep(philo->env->time_eat * 1000);
+		philo->last_eat = ft_time_now() - philo->born;
+		ft_message(philo, "is eating", philo->last_eat);
+		usleep(philo->env->time_sleep * 1000);
+		philo->last_sleep= ft_time_now() - philo->born;
+		ft_message(philo, "is sleeping", philo->last_sleep);
+		usleep(100);
+		philo->last_thinking = ft_time_now() - philo->born;
+		ft_message(philo, "is thinking", philo->last_thinking);
+		usleep(300);
+		i++;
+	}
+	return (arg);
+}*/

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 19:28:59 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:55:03 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_philo_born(t_philo *philo, t_env *env)
 	env->time_begin = ft_time_now();
 	while (i < env->argc)
 	{
-		usleep(400);
 		philo[i].id = i;
 		philo[i].life = env->life;
 		philo[i].born = ft_time_now();
