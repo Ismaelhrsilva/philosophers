@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routines.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 19:07:10 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:06:58 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_philo_born(t_philo *philo, t_env *env)
+suseconds_t	ft_time_now(void)
 {
-	int	i;
+	struct timeval	tv;
 
-	i = 0;
-	pthread_mutex_init(&env->life, NULL);
-	while (i < env->argc)
-	{
-		usleep(400);
-		philo[i].id = i;
-		philo[i].life = env->life;
-		philo[i].last_eat = ft_time_now();
-		philo[i].last_sleep = philo[i].last_eat;
-		philo[i].last_thinking = philo[i].last_eat;
-		i++;
-	}
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	ft_philo_after_life(t_philo *philo, t_env *env)
+void ft_message(t_philo *philo, char *msg, suseconds_t time)
 {
-	int	i;
-
-	i = 0;
-	(void )philo;
-	pthread_mutex_destroy(&env->life);
-	/*while (i < env->argc)
-	{
-		i++;
-	}*/
+	pthread_mutex_lock(&philo->life);
+	printf(" %ld Philosophers %d %s\n", time, philo->id, msg);
+	pthread_mutex_unlock(&philo->life);
 }

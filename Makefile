@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 20:08:54 by ishenriq          #+#    #+#              #
-#    Updated: 2024/07/20 23:20:00 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/07/22 19:07:29 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LDFLAGS	:= $(HEADERS)
 SRC_DIR := ./src/
 SRCS := principal/main.c \
 	principal/routines.c \
+	utils/utils.c \
 	utils/ft_atoi.c \
 	utils/ft_putendl_fd.c \
 
