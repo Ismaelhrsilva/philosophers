@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 19:11:00 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:28:28 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@
 
 typedef pthread_mutex_t t_pmutex;
 
+typedef struct s_env
+{
+	int	argc;
+	t_pmutex	life;
+	suseconds_t time_begin;
+	int		n_philo;
+	int 	time_die;
+	int 	time_eat;
+	int		time_sleep;
+	int		n_eat;
+}	t_env;
+
 typedef struct	s_philo
 {
 	pthread_t	thread;
@@ -31,14 +43,8 @@ typedef struct	s_philo
 	suseconds_t	last_eat;
 	suseconds_t	last_sleep;
 	suseconds_t	last_thinking;
+	t_env		*env;
 }	t_philo;
-
-typedef struct s_env
-{
-	int	argc;
-	t_pmutex	life;
-	suseconds_t time_begin;
-}	t_env;
 
 int	ft_atoi(const char *nptr);
 void	ft_putendl_fd(char *s, int fd);

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 19:12:16 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:28:59 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_philo_born(t_philo *philo, t_env *env)
 		philo[i].last_eat = ft_time_now();
 		philo[i].last_sleep = philo[i].last_eat;
 		philo[i].last_thinking = philo[i].last_eat;
+		philo[i].env = env;
 		i++;
 	}
 }

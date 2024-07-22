@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 19:11:51 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:29:49 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,41 @@ void	*ft_life(void *arg)
 
 	philo = (t_philo *)arg;
 	i = 0;
-	while (i < 10)
+	while (i < 2)
 	{
-		usleep(300);
+		usleep(philo->env->time_eat);
 		philo->last_eat = ft_time_now() - philo->born;
 		ft_message(philo, "is eating", philo->last_eat);
-		usleep(300);
+		usleep(philo->env->time_sleep);
 		philo->last_sleep= ft_time_now() - philo->born;
 		ft_message(philo, "is sleeping", philo->last_sleep);
-		usleep(300);
+		usleep(100);
 		philo->last_thinking = ft_time_now() - philo->born;
 		ft_message(philo, "is thinking", philo->last_thinking);
 		usleep(300);
 		i++;
 	}
 	return (arg);
+}
+
+int	ft_args(int argc, char **argv, t_env *env)
+{
+	if (argc > 6 || argc < 5)
+	{
+		ft_putendl_fd("error", 2);
+		return (1);
+	}
+	else
+	{
+		env->argc	= ft_atoi(argv[1]);
+		env->n_philo = ft_atoi(argv[1]);
+		env->time_die = ft_atoi(argv[2]);
+		env->time_eat = ft_atoi(argv[3]);
+		env->time_sleep = ft_atoi(argv[4]);
+		if (argc == 6)
+			env->n_eat = ft_atoi(argv[5]);
+		return (0);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -45,10 +65,8 @@ int	main(int argc, char **argv)
 
 	(void )argc;
 	env = malloc(sizeof(t_env));
-	if (argv[1] != NULL)
-		env->argc = ft_atoi(argv[1]);
-	else
-		env->argc = 1;
+	if (ft_args(argc, argv, env))
+		exit(0);
 	ft_philo_born(philo, env);
 	i = 0;
 	while (i < env->argc)
