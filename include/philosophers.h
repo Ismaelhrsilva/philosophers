@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/20 23:02:57 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:48:49 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef pthread_mutex_t t_pmutex;
 typedef struct	s_philo
 {
 	pthread_t	thread;
-	int			*id;
+	int			id;
 	t_pmutex	life;
 }	t_philo;
 
