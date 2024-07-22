@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 19:04:18 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:11:51 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void	*ft_life(void *arg)
 
 	philo = (t_philo *)arg;
 	i = 0;
-	while (i < 3)
+	while (i < 10)
 	{
 		usleep(300);
-		philo->last_eat = ft_time_now() - philo->last_eat;
+		philo->last_eat = ft_time_now() - philo->born;
 		ft_message(philo, "is eating", philo->last_eat);
 		usleep(300);
-		philo->last_sleep= ft_time_now() - philo->last_sleep;
+		philo->last_sleep= ft_time_now() - philo->born;
 		ft_message(philo, "is sleeping", philo->last_sleep);
 		usleep(300);
-		philo->last_thinking = ft_time_now() - philo->last_thinking;
+		philo->last_thinking = ft_time_now() - philo->born;
 		ft_message(philo, "is thinking", philo->last_thinking);
 		usleep(300);
 		i++;

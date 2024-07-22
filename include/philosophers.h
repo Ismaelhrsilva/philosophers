@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 19:02:39 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:11:00 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_philo
 	pthread_t	thread;
 	int			id;
 	t_pmutex	life;
+	suseconds_t	born;
 	suseconds_t	last_eat;
 	suseconds_t	last_sleep;
 	suseconds_t	last_thinking;
@@ -36,6 +37,7 @@ typedef struct s_env
 {
 	int	argc;
 	t_pmutex	life;
+	suseconds_t time_begin;
 }	t_env;
 
 int	ft_atoi(const char *nptr);
