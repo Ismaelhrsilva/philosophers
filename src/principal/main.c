@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 16:49:03 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:49:23 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,6 @@ void	*ft_life(void *arg)
 	}
 	return (arg);
 }
-
-void	ft_philo_born(t_philo *philo, t_env *env)
-{
-	int	i;
-
-	i = 0;
-	pthread_mutex_init(&env->life, NULL);
-	while (i < env->argc)
-	{
-		philo[i].id = i;
-		philo[i].life = env->life;
-		i++;
-	}
-}
-
-void	ft_philo_after_life(t_philo *philo, t_env *env)
-{
-	int	i;
-
-	i = 0;
-	(void )philo;
-	pthread_mutex_destroy(&env->life);
-	/*while (i < env->argc)
-	{
-		i++;
-	}*/
-}
-
 
 int	main(int argc, char **argv)
 {
