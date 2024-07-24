@@ -27,7 +27,6 @@ t_pmutex	*ft_create_mutex(t_env *env)
 	return (fork);
 }
 
-
 void	ft_philo_born(t_philo *philo, t_env *env)
 {
 	int	i;
@@ -41,20 +40,30 @@ void	ft_philo_born(t_philo *philo, t_env *env)
 	{
 		philo[i].id = i;
 		philo[i].life = env->life;
-		philo[i].born = ft_time_now();
+		philo[i].born = env->time_begin;
 		philo[i].last_eat = ft_time_now();
 		philo[i].last_sleep = philo[i].last_eat;
 		philo[i].last_thinking = philo[i].last_eat;
 		philo[i].env = env;
-		if (i == env->argc -1)
-			philo->fork.r_fork = fork[0];
+		if (i % 2 == 0)
+		{
+			philo[i].fork.r_fork = fork[i];
+			philo[i].fork.l_fork = fork[i + 1];
+		}
 		else
-			philo->fork.r_fork = fork[i + 1];
-			//philo->fork.r_fork = fork[i];
-		//philo->fork.l_fork = fork[i + 1];
-		philo->fork.l_fork = fork[i];
+		{
+			philo[i].fork.l_fork = fork[i];
+			philo[i].fork.r_fork = fork[i + 1];
+		}
+		if (i == env->argc -1)
+			philo[i].fork.l_fork = fork[0];
 		i++;
 	}
+		/*if (i == env->argc -1)
+			philo[i].fork.r_fork = fork[0];
+		else
+			philo[i].fork.r_fork = fork[i + 1];
+		philo[i].fork.l_fork = fork[i];*/
 }
 
 void	ft_philo_after_life(t_philo *philo, t_env *env)
