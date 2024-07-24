@@ -6,32 +6,12 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/24 19:54:33 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:19:18 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 # include <pthread.h>
-
-void	ft_eating(t_philo *philo, t_env *env)
-{
-	pthread_mutex_lock(philo->r_fork);
-	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-	pthread_mutex_lock(philo->l_fork);
-	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-	usleep(philo->env->time_eat * 1000);
-	philo->last_eat = ft_time_now() - philo->born;
-	ft_message(philo, "is eating", philo->last_eat);
-	pthread_mutex_unlock(philo->r_fork);
-	pthread_mutex_unlock(philo->l_fork);
-}
-
-void	ft_sleeping(t_philo *philo, t_env *env)
-{
-	usleep(philo->env->time_sleep * 1000);
-	philo->last_sleep= ft_time_now() - philo->born;
-	ft_message(philo, "is sleeping", philo->last_sleep);
-}
 
 void	*ft_life(void *arg)
 {
@@ -44,8 +24,7 @@ void	*ft_life(void *arg)
 	{
 		ft_eating(philo, philo->env);
 		ft_sleeping(philo, philo->env);
-		philo->last_thinking = ft_time_now() - philo->born;
-		ft_message(philo, "is thinking", philo->last_thinking);
+		ft_message(philo, "is thinking", ft_time_now() - philo->born);
 		i++;
 	}
 	return (arg);

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/24 19:53:18 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:14:44 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,17 @@ typedef struct	s_philo
 	t_env		*env;
 }	t_philo;
 
+
+//File Utils
+void ft_message(t_philo *philo, char *msg, suseconds_t time);
+suseconds_t	ft_time_now(void);
+t_pmutex	*ft_create_mutex(t_env *env);
 int	ft_atoi(const char *nptr);
 void	ft_putendl_fd(char *s, int fd);
 
-void ft_message(t_philo *philo, char *msg, suseconds_t time);
-suseconds_t	ft_time_now(void);
+//File Routines;
+void	ft_sleeping(t_philo *philo, t_env *env);
+void	ft_eating(t_philo *philo, t_env *env);
 void	ft_philo_born(t_philo *philo, t_env *env);
 void	ft_philo_after_life(t_philo *philo, t_env *env);
 

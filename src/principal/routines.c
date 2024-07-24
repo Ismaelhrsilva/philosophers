@@ -6,25 +6,30 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/24 19:54:08 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:17:39 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_pmutex	*ft_create_mutex(t_env *env)
+void	ft_eating(t_philo *philo, t_env *env)
 {
-	int	i;
-	t_pmutex	*fork;
+	pthread_mutex_lock(philo->r_fork);
+	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	pthread_mutex_lock(philo->l_fork);
+	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	ft_message(philo, "is eating", ft_time_now() - philo->born);
+	usleep(philo->env->time_eat * 1000);
+	philo->last_eat = ft_time_now() - philo->born;
+	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
+}
 
-	i = 0;
-	fork = malloc(env->argc * sizeof(t_pmutex));
-	while (i < env->argc)
-	{
-		pthread_mutex_init(&fork[i], NULL);
-		i++;
-	}
-	return (fork);
+void	ft_sleeping(t_philo *philo, t_env *env)
+{
+	ft_message(philo, "is sleeping", ft_time_now() - philo->born);
+	usleep(philo->env->time_sleep * 1000);
+	philo->last_sleep= ft_time_now() - philo->born;
 }
 
 void	ft_philo_born(t_philo *philo, t_env *env)
