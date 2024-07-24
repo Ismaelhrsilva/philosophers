@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 20:01:22 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:53:18 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@
 # include <pthread.h>
 
 typedef pthread_mutex_t t_pmutex;
-
-typedef struct s_fork
-{
-	t_pmutex	r_fork;
-	t_pmutex	l_fork;
-}	t_fork;
-
 
 typedef struct s_env
 {
@@ -50,7 +43,8 @@ typedef struct	s_philo
 	suseconds_t	last_eat;
 	suseconds_t	last_sleep;
 	suseconds_t	last_thinking;
-	t_fork		fork;
+	t_pmutex	*r_fork;
+	t_pmutex	*l_fork;
 	t_env		*env;
 }	t_philo;
 

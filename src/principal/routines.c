@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 20:42:38 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:54:08 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,13 @@ void	ft_philo_born(t_philo *philo, t_env *env)
 		philo[i].last_sleep = philo[i].last_eat;
 		philo[i].last_thinking = philo[i].last_eat;
 		philo[i].env = env;
-		if (i % 2 == 0)
-		{
-			philo[i].fork.r_fork = fork[i];
-			philo[i].fork.l_fork = fork[i + 1];
-		}
+		if (i == env->argc - 1)
+			philo[i].l_fork = &fork[0];
 		else
-		{
-			philo[i].fork.l_fork = fork[i];
-			philo[i].fork.r_fork = fork[i + 1];
-		}
-		if (i == env->argc -1)
-			philo[i].fork.l_fork = fork[0];
+			philo[i].l_fork = &fork[i + 1];
+		philo[i].r_fork = &fork[i];
 		i++;
 	}
-		/*if (i == env->argc -1)
-			philo[i].fork.r_fork = fork[0];
-		else
-			philo[i].fork.r_fork = fork[i + 1];
-		philo[i].fork.l_fork = fork[i];*/
 }
 
 void	ft_philo_after_life(t_philo *philo, t_env *env)
@@ -76,9 +64,9 @@ void	ft_philo_after_life(t_philo *philo, t_env *env)
 	while (i < env->argc)
 	{
 		if (i % 2 == 0)
-			pthread_mutex_destroy(&philo->fork.r_fork);
+			pthread_mutex_destroy(philo->r_fork);
 		else
-			pthread_mutex_destroy(&philo->fork.l_fork);
+			pthread_mutex_destroy(philo->l_fork);
 		i++;
 	}
 }

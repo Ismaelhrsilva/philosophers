@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/22 20:25:40 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:54:33 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 void	ft_eating(t_philo *philo, t_env *env)
 {
-	pthread_mutex_lock(&philo->fork.r_fork);
-	pthread_mutex_lock(&philo->fork.l_fork);
+	pthread_mutex_lock(philo->r_fork);
+	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	pthread_mutex_lock(philo->l_fork);
+	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 	usleep(philo->env->time_eat * 1000);
 	philo->last_eat = ft_time_now() - philo->born;
 	ft_message(philo, "is eating", philo->last_eat);
-	pthread_mutex_unlock(&philo->fork.r_fork);
-	pthread_mutex_unlock(&philo->fork.l_fork);
+	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
 void	ft_sleeping(t_philo *philo, t_env *env)
@@ -85,6 +87,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < env->argc)
 	{
+		usleep(1 * 1000);
 		pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
 		i++;
 	}
@@ -97,27 +100,3 @@ int	main(int argc, char **argv)
 	ft_philo_after_life(philo, env);
 	return (0);
 }
-/*
-void	*ft_life(void *arg)
-{
-	t_philo *philo;
-	int	i;
-
-	philo = (t_philo *)arg;
-	i = 0;
-	while (i < philo->env->n_eat)
-	{
-		usleep(philo->env->time_eat * 1000);
-		philo->last_eat = ft_time_now() - philo->born;
-		ft_message(philo, "is eating", philo->last_eat);
-		usleep(philo->env->time_sleep * 1000);
-		philo->last_sleep= ft_time_now() - philo->born;
-		ft_message(philo, "is sleeping", philo->last_sleep);
-		usleep(100);
-		philo->last_thinking = ft_time_now() - philo->born;
-		ft_message(philo, "is thinking", philo->last_thinking);
-		usleep(300);
-		i++;
-	}
-	return (arg);
-}*/
