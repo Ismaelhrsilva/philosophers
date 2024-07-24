@@ -49,8 +49,10 @@ void	ft_philo_born(t_philo *philo, t_env *env)
 		if (i == env->argc -1)
 			philo->fork.r_fork = fork[0];
 		else
-			philo->fork.r_fork = fork[i];
-		philo->fork.l_fork = fork[i + 1];
+			philo->fork.r_fork = fork[i + 1];
+			//philo->fork.r_fork = fork[i];
+		//philo->fork.l_fork = fork[i + 1];
+		philo->fork.l_fork = fork[i];
 		i++;
 	}
 }
