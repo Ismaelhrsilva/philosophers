@@ -6,11 +6,28 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/24 20:17:39 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:36:27 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	*ft_life(void *arg)
+{
+	t_philo *philo;
+	int	i;
+
+	philo = (t_philo *)arg;
+	i = 0;
+	while (i < philo->env->n_eat)
+	{
+		ft_eating(philo, philo->env);
+		ft_sleeping(philo, philo->env);
+		ft_message(philo, "is thinking", ft_time_now() - philo->born);
+		i++;
+	}
+	return (arg);
+}
 
 void	ft_eating(t_philo *philo, t_env *env)
 {
@@ -32,10 +49,10 @@ void	ft_sleeping(t_philo *philo, t_env *env)
 	philo->last_sleep= ft_time_now() - philo->born;
 }
 
-void	ft_philo_born(t_philo *philo, t_env *env)
+void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
 {
-	int	i;
 	t_pmutex	*fork;
+	int	i;
 
 	i = 0;
 	pthread_mutex_init(&env->life, NULL);
@@ -57,6 +74,7 @@ void	ft_philo_born(t_philo *philo, t_env *env)
 		philo[i].r_fork = &fork[i];
 		i++;
 	}
+	monitor->env = env;
 }
 
 void	ft_philo_after_life(t_philo *philo, t_env *env)

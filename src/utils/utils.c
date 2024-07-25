@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/24 20:12:31 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:27:36 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,24 @@ t_pmutex	*ft_create_mutex(t_env *env)
 	return (fork);
 }
 
+int	ft_args(int argc, char **argv, t_env *env)
+{
+	if (argc > 6 || argc < 5)
+	{
+		ft_putendl_fd("error", 2);
+		return (1);
+	}
+	else
+	{
+		env->argc	= ft_atoi(argv[1]);
+		env->n_philo = ft_atoi(argv[1]);
+		env->time_die = ft_atoi(argv[2]);
+		env->time_eat = ft_atoi(argv[3]);
+		env->time_sleep = ft_atoi(argv[4]);
+		if (argc == 6)
+			env->n_eat = ft_atoi(argv[5]);
+		else
+			env->n_eat = ft_atoi("2");
+		return (0);
+	}
+}
