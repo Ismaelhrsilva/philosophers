@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/24 20:27:36 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:11:34 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	ft_args(int argc, char **argv, t_env *env)
 	}
 	else
 	{
+		env->started = ft_atoi("0");
 		env->argc	= ft_atoi(argv[1]);
 		env->n_philo = ft_atoi(argv[1]);
 		env->time_die = ft_atoi(argv[2]);

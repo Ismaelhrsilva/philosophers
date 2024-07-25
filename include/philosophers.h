@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/24 20:35:57 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:10:46 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,8 @@ typedef struct s_env
 	int 	time_eat;
 	int		time_sleep;
 	int		n_eat;
+	int		started;
 }	t_env;
-
-typedef struct	s_monitor
-{
-	pthread_t	thread;
-	t_env		*env;
-}	t_monitor;
 
 typedef struct	s_philo
 {
@@ -54,6 +49,12 @@ typedef struct	s_philo
 	t_env		*env;
 }	t_philo;
 
+typedef struct	s_monitor
+{
+	pthread_t	thread;
+	t_env		*env;
+	t_philo		*philo;
+}	t_monitor;
 
 //File Utils
 int	ft_args(int argc, char **argv, t_env *env);
