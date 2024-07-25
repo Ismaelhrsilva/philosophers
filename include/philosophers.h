@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/25 18:10:46 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:28:03 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ typedef struct	s_philo
 	t_pmutex	life;
 	suseconds_t	born;
 	suseconds_t	last_eat;
-	suseconds_t	last_sleep;
-	suseconds_t	last_thinking;
 	t_pmutex	*r_fork;
 	t_pmutex	*l_fork;
 	t_env		*env;
