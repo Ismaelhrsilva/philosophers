@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/25 20:50:22 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:52:08 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	*ft_monitoring(void *arg)
 		{
 			ft_message(&monitor->philo[i], "died",
 			  ft_time_now() - monitor->philo[i].born);
+			monitor->env->started = 1;
 			break ;
 		}
 		i++;

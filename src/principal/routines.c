@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/25 19:34:50 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:56:59 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	*ft_life(void *arg)
 	i = 0;
 	while (i < philo->env->n_eat)
 	{
-		philo->env->started = 1;
 		ft_eating(philo, philo->env);
 		ft_sleeping(philo, philo->env);
+		if (philo->env->started == 1)
+			break ;
 		ft_message(philo, "is thinking", ft_time_now() - philo->born);
 		i++;
 	}
@@ -32,19 +33,28 @@ void	*ft_life(void *arg)
 
 void	ft_eating(t_philo *philo, t_env *env)
 {
+	if (philo->env->started == 1)
+		return ;
 	pthread_mutex_lock(philo->r_fork);
-	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	if (philo->env->started != 1)
+		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 	pthread_mutex_lock(philo->l_fork);
-	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-	ft_message(philo, "is eating", ft_time_now() - philo->born);
-	usleep(philo->env->time_eat * 1000);
-	philo->last_eat = ft_time_now();
+	if (philo->env->started != 1)
+		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	if (philo->env->started != 1)
+	{
+		ft_message(philo, "is eating", ft_time_now() - philo->born);
+		usleep(philo->env->time_eat * 1000);
+		philo->last_eat = ft_time_now();
+	}
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
 
 void	ft_sleeping(t_philo *philo, t_env *env)
 {
+	if (philo->env->started == 1)
+		return ;
 	ft_message(philo, "is sleeping", ft_time_now() - philo->born);
 	usleep(philo->env->time_sleep * 1000);
 }
