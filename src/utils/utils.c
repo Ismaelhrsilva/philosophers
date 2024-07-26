@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/25 18:11:34 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:16:24 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_args(int argc, char **argv, t_env *env)
 		if (argc == 6)
 			env->n_eat = ft_atoi(argv[5]);
 		else
-			env->n_eat = ft_atoi("2");
+			env->n_eat = ft_atoi("2000");
 		return (0);
 	}
 }
