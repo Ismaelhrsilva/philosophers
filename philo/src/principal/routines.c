@@ -6,14 +6,12 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 18:04:36 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:09:23 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-//pthread_mutex_lock(&philo->life);
-//pthread_mutex_unlock(&philo->life);
 void	*ft_life(void *arg)
 {
 	t_philo	*philo;
@@ -40,10 +38,10 @@ void	ft_eating(t_philo *philo)
 {
 	if (philo->env->started == 1)
 		return ;
-	pthread_mutex_lock(philo->r_fork);
+	pthread_mutex_lock(philo->l_fork);
 	if (philo->env->started != 1)
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-	pthread_mutex_lock(philo->l_fork);
+	pthread_mutex_lock(philo->r_fork);
 	if (philo->env->started != 1)
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 	if (philo->env->started != 1)
@@ -53,8 +51,8 @@ void	ft_eating(t_philo *philo)
 		philo->last_eat = ft_time_now();
 		usleep(philo->env->time_eat * 1000);
 	}
-	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
 }
 
 void	ft_sleeping(t_philo *philo)
