@@ -6,16 +6,23 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:12:49 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:27:27 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <pthread.h>
 
+void	ft_free(t_env *env, t_monitor *monitor, t_philo *philo)
+{
+	free(env);
+	free(monitor);
+	free(philo);
+}
+
 int	main(int argc, char **argv)
 {
-	int			i;
+	static int	i;
 	t_philo		*philo;
 	t_monitor	*monitor;
 	t_env		*env;
@@ -23,30 +30,19 @@ int	main(int argc, char **argv)
 	env = malloc(sizeof(t_env));
 	monitor = malloc(sizeof(t_monitor));
 	philo = malloc(200 * sizeof(t_philo));
-	if (ft_args(argc, argv, env))
-		exit(0);
+	ft_args(argc, argv, env);
 	ft_philo_born(philo, env, monitor);
-	i = 0;
 	while (i < env->argc)
 	{
-		usleep(1 * 100);
 		pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
 		i++;
 	}
-	i = 0;
 	if (env->n_philo != 1)
 		pthread_create(&monitor->thread, NULL, &ft_monitoring, monitor);
 	i = 0;
 	while (i < env->argc)
-	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
-	}
+		pthread_join(philo[i++].thread, NULL);
 	if (env->n_philo != 1)
 		pthread_join(monitor->thread, NULL);
-	ft_philo_after_life(philo, env);
-	free(env);
-	free(monitor);
-	free(philo);
-	return (0);
+	return (ft_philo_after_life(philo, env), ft_free(env, monitor, philo), 0);
 }

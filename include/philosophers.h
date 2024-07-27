@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:10:33 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:19:05 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_monitor
 }	t_monitor;
 
 //File Utils
-int			ft_args(int argc, char **argv, t_env *env);
+void		ft_args(int argc, char **argv, t_env *env);
 void		ft_message(t_philo *philo, char *msg, suseconds_t time);
 suseconds_t	ft_time_now(void);
 t_pmutex	*ft_create_mutex(t_env *env);
