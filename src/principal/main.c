@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:27:27 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:28:47 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv)
 	ft_philo_born(philo, env, monitor);
 	while (i < env->argc)
 	{
+		usleep(1 * 100);
 		pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
 		i++;
 	}

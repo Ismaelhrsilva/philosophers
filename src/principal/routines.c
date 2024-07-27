@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:21:17 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:28:50 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*ft_life(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	usleep(1 * 100);
 	while (philo->n_eat < philo->env->n_eat)
 	{
 		if (philo->env->n_philo != 1)
