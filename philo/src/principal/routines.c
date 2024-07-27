@@ -6,12 +6,14 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 17:03:01 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:04:36 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+//pthread_mutex_lock(&philo->life);
+//pthread_mutex_unlock(&philo->life);
 void	*ft_life(void *arg)
 {
 	t_philo	*philo;
@@ -20,8 +22,8 @@ void	*ft_life(void *arg)
 	while (philo->n_eat < philo->env->n_eat)
 	{
 		if (philo->env->n_philo != 1)
-			ft_eating(philo, philo->env);
-		ft_sleeping(philo, philo->env);
+			ft_eating(philo);
+		ft_sleeping(philo);
 		if (philo->env->n_philo == 1)
 		{
 			ft_message(philo, "died", ft_time_now() - philo->born);
@@ -34,7 +36,7 @@ void	*ft_life(void *arg)
 	return (arg);
 }
 
-void	ft_eating(t_philo *philo, t_env *env)
+void	ft_eating(t_philo *philo)
 {
 	if (philo->env->started == 1)
 		return ;
@@ -55,7 +57,7 @@ void	ft_eating(t_philo *philo, t_env *env)
 	pthread_mutex_unlock(philo->l_fork);
 }
 
-void	ft_sleeping(t_philo *philo, t_env *env)
+void	ft_sleeping(t_philo *philo)
 {
 	if (philo->env->started == 1)
 		return ;
@@ -81,7 +83,6 @@ void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
 	while (i < env->argc)
 	{
 		philo[i].id = i;
-		philo[i].life = env->life;
 		philo[i].born = env->time_begin;
 		philo[i].last_eat = ft_time_now();
 		philo[i].n_eat = 0;

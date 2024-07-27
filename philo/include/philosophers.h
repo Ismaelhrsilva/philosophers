@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:19:05 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:04:19 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_philo
 {
 	pthread_t	thread;
 	int			id;
-	t_pmutex	life;
 	suseconds_t	born;
 	suseconds_t	last_eat;
 	int			n_eat;
@@ -66,8 +65,8 @@ void		ft_putendl_fd(char *s, int fd);
 
 //File Routines;
 void		*ft_life(void *arg);
-void		ft_sleeping(t_philo *philo, t_env *env);
-void		ft_eating(t_philo *philo, t_env *env);
+void		ft_sleeping(t_philo *philo);
+void		ft_eating(t_philo *philo);
 void		ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor);
 void		ft_philo_after_life(t_philo *philo, t_env *env);
 
