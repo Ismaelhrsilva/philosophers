@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 15:19:05 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:00:52 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,14 @@ void	*ft_life(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->n_eat < philo->env->n_eat)
 	{
-		ft_eating(philo, philo->env);
+		if (philo->env->n_philo != 1)
+			ft_eating(philo, philo->env);
 		ft_sleeping(philo, philo->env);
+		if (philo->env->n_philo == 1)
+		{
+			ft_message(philo, "died", ft_time_now() - philo->born);
+			break ;
+		}
 		if (philo->env->started == 1)
 			break ;
 		ft_message(philo, "is thinking", ft_time_now() - philo->born);
@@ -53,6 +59,11 @@ void	ft_sleeping(t_philo *philo, t_env *env)
 {
 	if (philo->env->started == 1)
 		return ;
+	if (philo->env->n_philo == 1)
+	{
+		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	}	
 	ft_message(philo, "is sleeping", ft_time_now() - philo->born);
 	usleep(philo->env->time_sleep * 1000);
 }
@@ -65,6 +76,7 @@ void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
 	i = 0;
 	pthread_mutex_init(&env->life, NULL);
 	fork = ft_create_mutex(env);
+	env->fork = fork;
 	env->time_begin = ft_time_now();
 	while (i < env->argc)
 	{
@@ -100,4 +112,5 @@ void	ft_philo_after_life(t_philo *philo, t_env *env)
 			pthread_mutex_destroy(philo->l_fork);
 		i++;
 	}
+	free(env->fork);
 }

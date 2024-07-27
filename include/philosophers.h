@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 15:09:27 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 15:49:34 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_env
 	int		time_sleep;
 	int		n_eat;
 	int		started;
+	t_pmutex	*fork;
 }	t_env;
 
 typedef struct	s_philo
