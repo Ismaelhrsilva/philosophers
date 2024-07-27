@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/25 20:56:59 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 15:19:05 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,15 @@
 void	*ft_life(void *arg)
 {
 	t_philo *philo;
-	int	i;
 
 	philo = (t_philo *)arg;
-	i = 0;
-	while (i < philo->env->n_eat)
+	while (philo->n_eat < philo->env->n_eat)
 	{
 		ft_eating(philo, philo->env);
 		ft_sleeping(philo, philo->env);
 		if (philo->env->started == 1)
 			break ;
 		ft_message(philo, "is thinking", ft_time_now() - philo->born);
-		i++;
 	}
 	return (arg);
 }
@@ -43,6 +40,7 @@ void	ft_eating(t_philo *philo, t_env *env)
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 	if (philo->env->started != 1)
 	{
+		philo->n_eat++;
 		ft_message(philo, "is eating", ft_time_now() - philo->born);
 		usleep(philo->env->time_eat * 1000);
 		philo->last_eat = ft_time_now();
@@ -74,6 +72,7 @@ void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
 		philo[i].life = env->life;
 		philo[i].born = env->time_begin;
 		philo[i].last_eat = ft_time_now();
+		philo[i].n_eat = 0;
 		philo[i].env = env;
 		if (i == env->argc - 1)
 			philo[i].l_fork = &fork[0];

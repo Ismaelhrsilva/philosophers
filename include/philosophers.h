@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/25 19:28:03 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 15:09:27 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_philo
 	t_pmutex	life;
 	suseconds_t	born;
 	suseconds_t	last_eat;
+	int			n_eat;
 	t_pmutex	*r_fork;
 	t_pmutex	*l_fork;
 	t_env		*env;
@@ -68,6 +69,9 @@ void	ft_sleeping(t_philo *philo, t_env *env);
 void	ft_eating(t_philo *philo, t_env *env);
 void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor);
 void	ft_philo_after_life(t_philo *philo, t_env *env);
+
+//File monitoring
+void	*ft_monitoring(void *arg);
 
 #endif
 
