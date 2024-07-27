@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:28:47 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:48:26 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,27 @@ void	ft_free(t_env *env, t_monitor *monitor, t_philo *philo)
 	free(env);
 	free(monitor);
 	free(philo);
+}
+
+void	ft_create_thread(t_env *env, t_philo *philo)
+{
+	static int	i;
+
+	while (i < env->argc)
+	{
+		usleep(1 * 100);
+		if (i % 2 == 0)
+			pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
+		i++;
+	}
+	i = 0;
+	while (i < env->argc)
+	{
+		usleep(1 * 100);
+		if (i % 2 != 0)
+			pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -32,12 +53,7 @@ int	main(int argc, char **argv)
 	philo = malloc(200 * sizeof(t_philo));
 	ft_args(argc, argv, env);
 	ft_philo_born(philo, env, monitor);
-	while (i < env->argc)
-	{
-		usleep(1 * 100);
-		pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
-		i++;
-	}
+	ft_create_thread(env, philo);
 	if (env->n_philo != 1)
 		pthread_create(&monitor->thread, NULL, &ft_monitoring, monitor);
 	i = 0;
