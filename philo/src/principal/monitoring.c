@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:00:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:12:29 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:00:59 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*ft_monitoring(void *arg)
 	i = 0;
 	while (1)
 	{
-		usleep(10 * 1000);
+		usleep(1 * 1000);
 		if (i == monitor->env->n_philo)
 			i = 0;
 		last_eat = ft_time_now() - monitor->philo[i].last_eat;

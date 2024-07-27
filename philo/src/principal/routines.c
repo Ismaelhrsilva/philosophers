@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:28:50 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:03:01 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	ft_eating(t_philo *philo, t_env *env)
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 	if (philo->env->started != 1)
 	{
-		philo->n_eat++;
 		ft_message(philo, "is eating", ft_time_now() - philo->born);
-		usleep(philo->env->time_eat * 1000);
+		philo->n_eat++;
 		philo->last_eat = ft_time_now();
+		usleep(philo->env->time_eat * 1000);
 	}
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);

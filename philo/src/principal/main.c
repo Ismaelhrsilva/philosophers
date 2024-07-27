@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:48:26 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:55:30 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_create_thread(t_env *env, t_philo *philo)
 
 	while (i < env->argc)
 	{
-		usleep(1 * 100);
+		usleep(1 * 10);
 		if (i % 2 == 0)
 			pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
 		i++;
@@ -34,7 +34,7 @@ void	ft_create_thread(t_env *env, t_philo *philo)
 	i = 0;
 	while (i < env->argc)
 	{
-		usleep(1 * 100);
+		usleep(1 * 10);
 		if (i % 2 != 0)
 			pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
 		i++;
