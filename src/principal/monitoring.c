@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:00:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 15:26:10 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:12:29 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	*ft_monitoring(void *arg)
 {
 	t_monitor	*monitor;
-	int last_eat;
-	int	time_die;
-	int	i;
+	int			last_eat;
+	int			time_die;
+	int			i;
 
 	monitor = (t_monitor *)arg;
 	i = 0;
@@ -40,4 +40,3 @@ void	*ft_monitoring(void *arg)
 	}
 	return (arg);
 }
-

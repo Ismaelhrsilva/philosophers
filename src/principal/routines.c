@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:00:52 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:12:00 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_life(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	while (philo->n_eat < philo->env->n_eat)
@@ -63,7 +63,7 @@ void	ft_sleeping(t_philo *philo, t_env *env)
 	{
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-	}	
+	}
 	ft_message(philo, "is sleeping", ft_time_now() - philo->born);
 	usleep(philo->env->time_sleep * 1000);
 }
@@ -71,7 +71,7 @@ void	ft_sleeping(t_philo *philo, t_env *env)
 void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
 {
 	t_pmutex	*fork;
-	int	i;
+	int			i;
 
 	i = 0;
 	pthread_mutex_init(&env->life, NULL);

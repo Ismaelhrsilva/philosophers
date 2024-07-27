@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/25 21:16:24 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:11:12 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ suseconds_t	ft_time_now(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void ft_message(t_philo *philo, char *msg, suseconds_t time)
+void	ft_message(t_philo *philo, char *msg, suseconds_t time)
 {
 	pthread_mutex_lock(&philo->life);
 	printf(" %ld %d %s\n", time, philo->id, msg);
@@ -29,7 +29,7 @@ void ft_message(t_philo *philo, char *msg, suseconds_t time)
 
 t_pmutex	*ft_create_mutex(t_env *env)
 {
-	int	i;
+	int			i;
 	t_pmutex	*fork;
 
 	i = 0;
@@ -52,7 +52,7 @@ int	ft_args(int argc, char **argv, t_env *env)
 	else
 	{
 		env->started = ft_atoi("0");
-		env->argc	= ft_atoi(argv[1]);
+		env->argc = ft_atoi(argv[1]);
 		env->n_philo = ft_atoi(argv[1]);
 		env->time_die = ft_atoi(argv[2]);
 		env->time_eat = ft_atoi(argv[3]);

@@ -6,19 +6,19 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:00:19 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:12:49 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-# include <pthread.h>
+#include <pthread.h>
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	t_philo	*philo;
+	int			i;
+	t_philo		*philo;
 	t_monitor	*monitor;
-	t_env	*env;
+	t_env		*env;
 
 	env = malloc(sizeof(t_env));
 	monitor = malloc(sizeof(t_monitor));
