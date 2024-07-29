@@ -26,7 +26,7 @@ void	ft_create_thread(t_env *env, t_philo *philo)
 
 	while (i < env->argc)
 	{
-		usleep(1000 * 1000);
+		usleep(1 * 10);
 		if (i % 2 == 0)
 			pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
 		i++;
@@ -34,7 +34,7 @@ void	ft_create_thread(t_env *env, t_philo *philo)
 	i = 0;
 	while (i < env->argc)
 	{
-		usleep(1000 * 1000);
+		usleep(1 * 10);
 		if (i % 2 != 0)
 			pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
 		i++;

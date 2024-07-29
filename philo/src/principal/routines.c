@@ -105,6 +105,7 @@ void	ft_sleeping(t_philo *philo)
 	pthread_mutex_unlock(&philo->env->life);
 	ft_message(philo, "is sleeping", ft_time_now() - philo->born);
 	usleep(philo->env->time_sleep * 1000);
+	usleep(philo->env->time_die / 10 * 1000);
 }
 
 void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
