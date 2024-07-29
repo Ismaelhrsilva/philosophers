@@ -38,21 +38,36 @@ void	ft_eating(t_philo *philo)
 {
 	if (philo->env->started == 1)
 		return ;
-	pthread_mutex_lock(philo->l_fork);
-	if (philo->env->started != 1)
-		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-	pthread_mutex_lock(philo->r_fork);
-	if (philo->env->started != 1)
-		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+  if (philo->id % 2)
+  {
+	  pthread_mutex_lock(philo->l_fork);
+	  if (philo->env->started != 1)
+		  ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	  pthread_mutex_lock(philo->r_fork);
+	  if (philo->env->started != 1)
+		  ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+  }
+  else
+  {
+	  pthread_mutex_lock(philo->r_fork);
+	  if (philo->env->started != 1)
+		  ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	  pthread_mutex_lock(philo->l_fork);
+	  if (philo->env->started != 1)
+		  ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+
+  }
 	if (philo->env->started != 1)
 	{
+	  pthread_mutex_lock(&philo->env->life);
+    philo->n_eat++;
+    philo->last_eat = ft_time_now();
+    pthread_mutex_unlock(&philo->env->life);
 		ft_message(philo, "is eating", ft_time_now() - philo->born);
-		philo->n_eat++;
-		philo->last_eat = ft_time_now();
 		usleep(philo->env->time_eat * 1000);
 	}
-	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
 void	ft_sleeping(t_philo *philo)
@@ -75,6 +90,7 @@ void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
 
 	i = 0;
 	pthread_mutex_init(&env->life, NULL);
+	pthread_mutex_init(&monitor->mutex_monitor, NULL);
 	fork = ft_create_mutex(env);
 	env->fork = fork;
 	env->time_begin = ft_time_now();
@@ -95,7 +111,6 @@ void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
 	monitor->env = env;
 	monitor->philo = philo;
 }
-
 void	ft_philo_after_life(t_philo *philo, t_env *env)
 {
 	int	i;
@@ -105,11 +120,49 @@ void	ft_philo_after_life(t_philo *philo, t_env *env)
 	pthread_mutex_destroy(&env->life);
 	while (i < env->argc)
 	{
-		if (i % 2 == 0)
-			pthread_mutex_destroy(philo->r_fork);
-		else
-			pthread_mutex_destroy(philo->l_fork);
+		pthread_mutex_destroy(&env->fork[i]);
 		i++;
 	}
-	free(env->fork);
+  free(env->fork);
 }
+
+//  void	ft_philo_after_life(t_philo *philo, t_env *env)
+//  {
+//  	int	i;
+//  
+//  	i = 0;
+//  	(void )philo;
+//  	pthread_mutex_destroy(&env->life);
+//  	while (i < env->argc)
+//  	{
+//  		if (i % 2 == 0)
+//  			pthread_mutex_destroy(philo->r_fork);
+//  		else
+//  			pthread_mutex_destroy(philo->l_fork);
+//  		i++;
+//  	}
+//    free(env->fork);
+//  }
+
+//void	ft_eating(t_philo *philo)
+//{
+//	if (philo->env->started == 1)
+//		return ;
+//	pthread_mutex_lock(philo->r_fork);
+//	if (philo->env->started != 1)
+//		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+//	pthread_mutex_lock(philo->l_fork);
+//	if (philo->env->started != 1)
+//		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+//	if (philo->env->started != 1)
+//	{
+//	  pthread_mutex_lock(&philo->env->life);
+//    philo->n_eat++;
+//    philo->last_eat = ft_time_now();
+//    pthread_mutex_unlock(&philo->env->life);
+//		ft_message(philo, "is eating", ft_time_now() - philo->born);
+//		usleep(philo->env->time_eat * 1000);
+//	}
+//	pthread_mutex_unlock(philo->r_fork);
+//	pthread_mutex_unlock(philo->l_fork);
+//}

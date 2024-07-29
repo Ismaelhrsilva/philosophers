@@ -28,8 +28,7 @@ void	ft_create_thread(t_env *env, t_philo *philo)
 	{
 		usleep(1 * 10);
 		if (i % 2 == 0)
-			pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]);
-		i++;
+			pthread_create(&philo[i].thread, NULL, &ft_life, &philo[i]); i++;
 	}
 	i = 0;
 	while (i < env->argc)
@@ -61,5 +60,6 @@ int	main(int argc, char **argv)
 		pthread_join(philo[i++].thread, NULL);
 	if (env->n_philo != 1)
 		pthread_join(monitor->thread, NULL);
+	pthread_mutex_destroy(&monitor->mutex_monitor);
 	return (ft_philo_after_life(philo, env), ft_free(env, monitor, philo), 0);
 }

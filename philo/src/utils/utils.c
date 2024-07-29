@@ -37,7 +37,7 @@ void	ft_message(t_philo *philo, char *msg, suseconds_t time)
 */
 t_pmutex	*ft_create_mutex(t_env *env)
 {
-	int			i;
+  int			i;
 	t_pmutex	*fork;
 
 	i = 0;

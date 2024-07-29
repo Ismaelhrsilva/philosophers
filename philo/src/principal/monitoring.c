@@ -24,6 +24,8 @@ void	*ft_monitoring(void *arg)
 	while (1)
 	{
 		usleep(1 * 1000);
+    //pthread_mutex_lock(&monitor->mutex_monitor);
+	  pthread_mutex_lock(&monitor->env->life);
 		if (i == monitor->env->n_philo)
 			i = 0;
 		last_eat = ft_time_now() - monitor->philo[i].last_eat;
@@ -34,8 +36,12 @@ void	*ft_monitoring(void *arg)
 				ft_message(&monitor->philo[i], "died",
 					ft_time_now() - monitor->philo[i].born);
 			monitor->env->started = 1;
+	    pthread_mutex_unlock(&monitor->env->life);
+      //pthread_mutex_unlock(&monitor->mutex_monitor);
 			break ;
 		}
+	  pthread_mutex_unlock(&monitor->env->life);
+    //pthread_mutex_unlock(&monitor->mutex_monitor);
 		i++;
 	}
 	return (arg);

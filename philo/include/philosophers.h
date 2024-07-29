@@ -51,6 +51,7 @@ typedef struct s_philo
 typedef struct s_monitor
 {
 	pthread_t	thread;
+	t_pmutex	mutex_monitor;
 	t_env		*env;
 	t_philo		*philo;
 }	t_monitor;
