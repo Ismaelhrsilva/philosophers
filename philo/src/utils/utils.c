@@ -27,17 +27,9 @@ void	ft_message(t_philo *philo, char *msg, suseconds_t time)
 	pthread_mutex_unlock(&philo->env->life);
 }
 
-/*
-void	ft_message(t_philo *philo, char *msg, suseconds_t time)
-{
-	pthread_mutex_lock(&philo->life);
-	printf("%ld %d %s\n", time, philo->id, msg);
-	pthread_mutex_unlock(&philo->life);
-}
-*/
 t_pmutex	*ft_create_mutex(t_env *env)
 {
-  int			i;
+	int			i;
 	t_pmutex	*fork;
 
 	i = 0;
@@ -70,4 +62,19 @@ void	ft_args(int argc, char **argv, t_env *env)
 		else
 			env->n_eat = ft_atoi("2000");
 	}
+}
+
+void	ft_philo_after_life(t_philo *philo, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	(void )philo;
+	pthread_mutex_destroy(&env->life);
+	while (i < env->argc)
+	{
+		pthread_mutex_destroy(&env->fork[i]);
+		i++;
+	}
+	free(env->fork);
 }
