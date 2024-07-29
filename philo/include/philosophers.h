@@ -26,6 +26,7 @@ typedef struct s_env
 {
 	int			argc;
 	t_pmutex	life;
+	t_pmutex	write;
 	suseconds_t	time_begin;
 	int			n_philo;
 	int			time_die;

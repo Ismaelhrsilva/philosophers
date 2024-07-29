@@ -22,9 +22,9 @@ suseconds_t	ft_time_now(void)
 
 void	ft_message(t_philo *philo, char *msg, suseconds_t time)
 {
-	pthread_mutex_lock(&philo->env->life);
+	pthread_mutex_lock(&philo->env->write);
 	printf("%ld %d %s\n", time, philo->id, msg);
-	pthread_mutex_unlock(&philo->env->life);
+	pthread_mutex_unlock(&philo->env->write);
 }
 
 t_pmutex	*ft_create_mutex(t_env *env)
@@ -71,6 +71,7 @@ void	ft_philo_after_life(t_philo *philo, t_env *env)
 	i = 0;
 	(void )philo;
 	pthread_mutex_destroy(&env->life);
+	pthread_mutex_destroy(&env->write);
 	while (i < env->argc)
 	{
 		pthread_mutex_destroy(&env->fork[i]);
