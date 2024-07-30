@@ -21,7 +21,7 @@ void	*ft_monitoring(void *arg)
 	monitor = (t_monitor *)arg;
 	while (1)
 	{
-		usleep(1 * 1000);
+		usleep(1 * 100);
 		pthread_mutex_lock(&monitor->env->life);
 		if (i == monitor->env->n_philo)
 			i = 0;

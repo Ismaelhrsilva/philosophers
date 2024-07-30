@@ -11,10 +11,9 @@
 # **************************************************************************** #
 
 NAME	= philo
-#CFLAGS	:=  -Ofast -g3 -O0 -MD -MP
+CFLAGS	:= 
 #CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-CFLAGS	:=  -g3
-#CC	:= cc
+CC	:= cc
 BUILD_DIR = objects/
 MKDIR  := mkdir -p
 

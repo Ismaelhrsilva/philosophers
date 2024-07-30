@@ -70,7 +70,7 @@ void	ft_eating(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&philo->env->life);
-	if (philo->id % 2)
+	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->l_fork);
 		pthread_mutex_lock(&philo->env->life);
@@ -105,7 +105,6 @@ void	ft_sleeping(t_philo *philo)
 	pthread_mutex_unlock(&philo->env->life);
 	ft_message(philo, "is sleeping", ft_time_now() - philo->born);
 	usleep(philo->env->time_sleep * 1000);
-	usleep(philo->env->time_die / 10 * 1000);
 }
 
 void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
