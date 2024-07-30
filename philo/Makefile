@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME	= philo
-CFLAGS	:= 
+CFLAGS	:= -g3 
 #CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 CC	:= cc
 BUILD_DIR = objects/

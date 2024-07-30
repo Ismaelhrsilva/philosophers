@@ -17,14 +17,6 @@ void	*ft_life(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->env->n_philo == 1)
-	{
-		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-		ft_message(philo, "is sleeping", ft_time_now() - philo->born);
-		ft_message(philo, "died", ft_time_now() - philo->born);
-		return (arg);
-	}
 	while (philo->n_eat < philo->env->n_eat)
 	{
 		ft_eating(philo);
@@ -82,7 +74,9 @@ void	ft_eating(t_philo *philo)
 	else
 	{
 		pthread_mutex_lock(philo->r_fork);
+	  pthread_mutex_lock(&philo->env->life);
 		if (philo->env->started != 1)
+		pthread_mutex_unlock(&philo->env->life);
 			ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 		pthread_mutex_lock(philo->l_fork);
 	}
@@ -97,13 +91,8 @@ void	ft_sleeping(t_philo *philo)
 		pthread_mutex_unlock(&philo->env->life);
 		return ;
 	}
-	if (philo->env->n_philo == 1)
-	{
-		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-	}
-	pthread_mutex_unlock(&philo->env->life);
 	ft_message(philo, "is sleeping", ft_time_now() - philo->born);
+	pthread_mutex_unlock(&philo->env->life);
 	usleep(philo->env->time_sleep * 1000);
 }
 
