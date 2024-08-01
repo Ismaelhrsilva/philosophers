@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 18:09:23 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:06:48 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	*ft_life(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->n_eat < philo->env->n_eat)
 	{
-		ft_eating(philo);
-		ft_sleeping(philo);
 		pthread_mutex_lock(&philo->env->life);
 		if (philo->env->started == 1)
 		{
@@ -28,7 +26,9 @@ void	*ft_life(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->env->life);
-		ft_message(philo, "is thinking", ft_time_now() - philo->born);
+		ft_eating(philo);
+		ft_sleeping(philo);
+		ft_thinking(philo);
 	}
 	return (arg);
 }
@@ -94,6 +94,18 @@ void	ft_sleeping(t_philo *philo)
 	ft_message(philo, "is sleeping", ft_time_now() - philo->born);
 	pthread_mutex_unlock(&philo->env->life);
 	usleep(philo->env->time_sleep * 1000);
+}
+
+void	ft_thinking(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->env->life);
+	if (philo->env->started == 1)
+	{
+		pthread_mutex_unlock(&philo->env->life);
+		return ;
+	}
+	ft_message(philo, "is thinking", ft_time_now() - philo->born);
+	pthread_mutex_unlock(&philo->env->life);
 }
 
 void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
