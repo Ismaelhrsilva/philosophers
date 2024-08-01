@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/01 20:06:48 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:14:38 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	ft_thinking(t_philo *philo)
 	}
 	ft_message(philo, "is thinking", ft_time_now() - philo->born);
 	pthread_mutex_unlock(&philo->env->life);
+	usleep(8 * 1000);
 }
 
 void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)

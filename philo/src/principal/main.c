@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/01 19:52:24 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:38:41 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	ft_one_philo(t_philo *philo)
 {
 	if (philo->env->n_philo == 1)
 	{
-		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 		ft_message(philo, "is sleeping", ft_time_now() - philo->born);
 		usleep(philo->env->time_die * 1000);
