@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 16:55:30 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:05:55 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	ft_one_philo(t_philo *philo)
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
 		ft_message(philo, "is sleeping", ft_time_now() - philo->born);
+		usleep(philo->env->time_die * 1000);
 		ft_message(philo, "died", ft_time_now() - philo->born);
 		return (1);
 	}
