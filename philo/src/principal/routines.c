@@ -6,32 +6,11 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/01 20:14:38 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/01 21:04:54 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	*ft_life(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	while (philo->n_eat < philo->env->n_eat)
-	{
-		pthread_mutex_lock(&philo->env->life);
-		if (philo->env->started == 1)
-		{
-			pthread_mutex_unlock(&philo->env->life);
-			break ;
-		}
-		pthread_mutex_unlock(&philo->env->life);
-		ft_eating(philo);
-		ft_sleeping(philo);
-		ft_thinking(philo);
-	}
-	return (arg);
-}
 
 void	ft_eating_aux(t_philo *philo)
 {
@@ -55,13 +34,6 @@ void	ft_eating_aux(t_philo *philo)
 
 void	ft_eating(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->env->life);
-	if (philo->env->started == 1)
-	{
-		pthread_mutex_unlock(&philo->env->life);
-		return ;
-	}
-	pthread_mutex_unlock(&philo->env->life);
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->l_fork);
@@ -74,10 +46,10 @@ void	ft_eating(t_philo *philo)
 	else
 	{
 		pthread_mutex_lock(philo->r_fork);
-	  pthread_mutex_lock(&philo->env->life);
+		pthread_mutex_lock(&philo->env->life);
 		if (philo->env->started != 1)
-		pthread_mutex_unlock(&philo->env->life);
 			ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+		pthread_mutex_unlock(&philo->env->life);
 		pthread_mutex_lock(philo->l_fork);
 	}
 	ft_eating_aux(philo);

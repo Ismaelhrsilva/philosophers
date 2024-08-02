@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/01 19:59:49 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:57:53 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ suseconds_t	ft_time_now(void);
 t_pmutex	*ft_create_mutex(t_env *env);
 int			ft_atoi(const char *nptr);
 void		ft_putendl_fd(char *s, int fd);
-void	ft_thinking(t_philo *philo);
+void		ft_thinking(t_philo *philo);
 
 //File Routines;
 void		*ft_life(void *arg);

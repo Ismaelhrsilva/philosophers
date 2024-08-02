@@ -6,12 +6,33 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/01 20:38:41 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:59:36 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <pthread.h>
+
+void	*ft_life(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	while (philo->n_eat < philo->env->n_eat)
+	{
+		pthread_mutex_lock(&philo->env->life);
+		if (philo->env->started == 1)
+		{
+			pthread_mutex_unlock(&philo->env->life);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->env->life);
+		ft_eating(philo);
+		ft_sleeping(philo);
+		ft_thinking(philo);
+	}
+	return (arg);
+}
 
 void	ft_free(t_env *env, t_monitor *monitor, t_philo *philo)
 {
