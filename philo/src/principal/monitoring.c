@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:00:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 17:45:37 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:26:13 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_monitoring(void *arg)
 	monitor = (t_monitor *)arg;
 	while (1)
 	{
-		usleep(10 * 1000);
+		usleep(1 * 1000);
 		pthread_mutex_lock(&monitor->env->life);
 		if (i == monitor->env->n_philo)
 			i = 0;

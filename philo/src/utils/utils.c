@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/03 11:51:43 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:47:43 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ suseconds_t	ft_time_now(void)
 
 void	ft_message(t_philo *philo, char *msg, suseconds_t time)
 {
+	pthread_mutex_lock(&philo->env->write);
+	if (philo->env->started == 1)
+	{
+		pthread_mutex_unlock(&philo->env->write);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->env->write);
 	pthread_mutex_lock(&philo->env->write);
 	printf("%ld %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(&philo->env->write);
