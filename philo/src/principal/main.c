@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/01 20:59:36 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:57:00 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,18 @@ void	ft_create_thread(t_env *env, t_philo *philo)
 	}
 }
 
-int	ft_one_philo(t_philo *philo)
+void	*ft_one_philo(void *arg)
 {
-	if (philo->env->n_philo == 1)
-	{
-		ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
-		ft_message(philo, "is sleeping", ft_time_now() - philo->born);
-		usleep(philo->env->time_die * 1000);
-		ft_message(philo, "died", ft_time_now() - philo->born);
-		return (1);
-	}
-	else
-		return (0);
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	pthread_mutex_lock(philo->l_fork);
+	ft_message(philo, "has taken a fork", ft_time_now() - philo->born);
+	pthread_mutex_unlock(philo->l_fork);
+	usleep(philo->env->time_die * 1000);
+	ft_message(philo, "died", ft_time_now() - philo->born);
+	ft_philo_after_life(philo, philo->env);
+	return (arg);
 }
 
 int	main(int argc, char **argv)
@@ -84,19 +84,23 @@ int	main(int argc, char **argv)
 	t_env		*env;
 
 	env = malloc(sizeof(t_env));
+	ft_args(argc, argv, env);
 	monitor = malloc(sizeof(t_monitor));
 	philo = malloc(200 * sizeof(t_philo));
-	ft_args(argc, argv, env);
 	ft_philo_born(philo, env, monitor);
-	if (!ft_one_philo(philo))
+	if (env->n_philo == 1)
 	{
-		ft_create_thread(env, philo);
-		if (env->n_philo != 1)
-			pthread_create(&monitor->thread, NULL, &ft_monitoring, monitor);
-		while (i < env->argc)
-			pthread_join(philo[i++].thread, NULL);
-		if (env->n_philo != 1)
-			pthread_join(monitor->thread, NULL);
+		pthread_create(&philo[0].thread, NULL, &ft_one_philo, &philo[0]);
+		usleep((philo->env->time_die_2 + 50) * 1000);
+		pthread_join(philo->thread, NULL);
+		return (ft_free(env, monitor, philo), 0);
 	}
+	ft_create_thread(env, philo);
+	if (env->n_philo != 1)
+		pthread_create(&monitor->thread, NULL, &ft_monitoring, monitor);
+	while (i < env->argc)
+		pthread_join(philo[i++].thread, NULL);
+	if (env->n_philo != 1)
+		pthread_join(monitor->thread, NULL);
 	return (ft_philo_after_life(philo, env), ft_free(env, monitor, philo), 0);
 }

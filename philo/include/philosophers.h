@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:53:02 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/01 20:57:53 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:51:33 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_env
 	suseconds_t	time_begin;
 	int			n_philo;
 	int			time_die;
+	int			time_die_2;
 	int			time_eat;
 	int			time_sleep;
 	int			n_eat;

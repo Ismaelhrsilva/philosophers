@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/07/27 18:01:48 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:51:43 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_args(int argc, char **argv, t_env *env)
 	if (argc > 6 || argc < 5)
 	{
 		ft_putendl_fd("error", 2);
+		free(env);
 		exit (0);
 	}
 	else
@@ -55,12 +56,13 @@ void	ft_args(int argc, char **argv, t_env *env)
 		env->argc = ft_atoi(argv[1]);
 		env->n_philo = ft_atoi(argv[1]);
 		env->time_die = ft_atoi(argv[2]);
+		env->time_die_2 = ft_atoi(argv[2]);
 		env->time_eat = ft_atoi(argv[3]);
 		env->time_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
 			env->n_eat = ft_atoi(argv[5]);
 		else
-			env->n_eat = ft_atoi("2000");
+			env->n_eat = ft_atoi("200000");
 	}
 }
 
