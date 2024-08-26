@@ -6,13 +6,12 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 20:08:54 by ishenriq          #+#    #+#              #
-#    Updated: 2024/08/03 11:53:43 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/08/03 16:44:36 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
-CFLAGS	:= 
-#CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror
 CC	:= cc
 BUILD_DIR = objects/
 MKDIR  := mkdir -p

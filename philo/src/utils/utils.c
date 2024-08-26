@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/03 13:47:43 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:55:20 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ suseconds_t	ft_time_now(void)
 
 void	ft_message(t_philo *philo, char *msg, suseconds_t time)
 {
-	pthread_mutex_lock(&philo->env->write);
-	if (philo->env->started == 1)
-	{
-		pthread_mutex_unlock(&philo->env->write);
-		return ;
-	}
-	pthread_mutex_unlock(&philo->env->write);
 	pthread_mutex_lock(&philo->env->write);
 	printf("%ld %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(&philo->env->write);
@@ -53,9 +46,8 @@ void	ft_args(int argc, char **argv, t_env *env)
 {
 	if (argc > 6 || argc < 5)
 	{
-		ft_putendl_fd("error", 2);
 		free(env);
-		exit (0);
+		exit (1);
 	}
 	else
 	{
@@ -70,6 +62,12 @@ void	ft_args(int argc, char **argv, t_env *env)
 			env->n_eat = ft_atoi(argv[5]);
 		else
 			env->n_eat = ft_atoi("200000");
+	}
+	if (env->n_philo > 200 || env->n_philo < 1 || env->time_die < 60
+		|| env->time_eat < 60 || env->time_sleep < 60 || env->n_eat < 0)
+	{
+		free(env);
+		exit (1);
 	}
 }
 

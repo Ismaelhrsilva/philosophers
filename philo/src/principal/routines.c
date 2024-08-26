@@ -6,11 +6,23 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:54:05 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/03 13:41:50 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:58:30 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	ft_eating_aux_print(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->env->life);
+	if (philo->env->started == 1)
+	{
+		pthread_mutex_unlock(&philo->env->life);
+		return ;
+	}
+	ft_message(philo, "is eating", ft_time_now() - philo->born);
+	pthread_mutex_unlock(&philo->env->life);
+}
 
 void	ft_eating_aux(t_philo *philo)
 {
@@ -23,7 +35,7 @@ void	ft_eating_aux(t_philo *philo)
 		philo->n_eat++;
 		philo->last_eat = ft_time_now();
 		pthread_mutex_unlock(&philo->env->life);
-		ft_message(philo, "is eating", ft_time_now() - philo->born);
+		ft_eating_aux_print(philo);
 		usleep(philo->env->time_eat * 1000);
 	}
 	else
@@ -79,32 +91,4 @@ void	ft_thinking(t_philo *philo)
 	ft_message(philo, "is thinking", ft_time_now() - philo->born);
 	pthread_mutex_unlock(&philo->env->life);
 	usleep(8 * 1000);
-}
-
-void	ft_philo_born(t_philo *philo, t_env *env, t_monitor *monitor)
-{
-	t_pmutex	*fork;
-	static int	i;
-
-	pthread_mutex_init(&env->life, NULL);
-	pthread_mutex_init(&env->write, NULL);
-	fork = ft_create_mutex(env);
-	env->fork = fork;
-	env->time_begin = ft_time_now();
-	while (i < env->argc)
-	{
-		philo[i].id = i;
-		philo[i].born = env->time_begin;
-		philo[i].last_eat = ft_time_now();
-		philo[i].n_eat = 0;
-		philo[i].env = env;
-		if (i == env->argc - 1)
-			philo[i].l_fork = &fork[0];
-		else
-			philo[i].l_fork = &fork[i + 1];
-		philo[i].r_fork = &fork[i];
-		i++;
-	}
-	monitor->env = env;
-	monitor->philo = philo;
 }
